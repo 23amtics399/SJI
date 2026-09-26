@@ -62,9 +62,11 @@ export default function ProductCard({
   }
 
   // ── 'preview' variant — card with screenshot ──
+  const isFeatured = !!product.featured;
+
   return (
     <article
-      className={`pcard ${className}`}
+      className={`pcard ${isFeatured ? 'pcard--featured' : ''} ${className}`}
       style={{
         '--anim-delay': `${animIndex * 60}ms`,
         '--prod-accent': product.accentColor,
@@ -93,8 +95,14 @@ export default function ProductCard({
       {/* Card body */}
       <div className="pcard__body">
         <div className="pcard__body-top">
-          <div className="pcard__icon-wrap">
-            <ProductRealIcon product={product} size={16} />
+          <div className="pcard__identity">
+            <div className="pcard__icon-wrap">
+              <ProductRealIcon product={product} size={18} />
+            </div>
+            {/* Mobile-only inline name */}
+            <Link to={`/products/${product.slug}`} className="pcard__name-link pcard__name-link--inline">
+              <span className="pcard__name">{product.name}</span>
+            </Link>
           </div>
           {product.status === 'coming-soon' ? (
             <span className="product-card__badge">Coming soon</span>
@@ -107,7 +115,8 @@ export default function ProductCard({
           )}
         </div>
 
-        <Link to={`/products/${product.slug}`} className="pcard__name-link">
+        {/* Desktop-only block name */}
+        <Link to={`/products/${product.slug}`} className="pcard__name-link pcard__name-link--block">
           <p className="pcard__name">{product.name}</p>
         </Link>
         <p className="pcard__tagline">{product.tagline}</p>
@@ -127,7 +136,7 @@ export default function ProductCard({
               aria-label={`Open ${product.name}`}
             >
               <span>Open</span>
-              <ArrowRight size={13} className="pcard__open-arrow" />
+              <ArrowRight size={14} className="pcard__open-arrow" />
             </a>
           )}
         </div>

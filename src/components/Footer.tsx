@@ -28,26 +28,28 @@ export default function Footer() {
           <p className="footer__tagline">Useful software for the web.</p>
         </div>
 
-        <div className="footer__col">
-          <p className="footer__col-title">Products</p>
-          <ul className="footer__links">
-            {productLinks.map((link) => (
-              <li key={link.to}>
-                <Link to={link.to} className="footer__link">{link.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <div className="footer__cols-wrap">
+          <div className="footer__col">
+            <p className="footer__col-title">Products</p>
+            <ul className="footer__links">
+              {productLinks.map((link) => (
+                <li key={link.to}>
+                  <Link to={link.to} className="footer__link">{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <div className="footer__col">
-          <p className="footer__col-title">SJI</p>
-          <ul className="footer__links">
-            {sjiLinks.map((link) => (
-              <li key={link.to}>
-                <Link to={link.to} className="footer__link">{link.label}</Link>
-              </li>
-            ))}
-          </ul>
+          <div className="footer__col">
+            <p className="footer__col-title">SJI</p>
+            <ul className="footer__links">
+              {sjiLinks.map((link) => (
+                <li key={link.to}>
+                  <Link to={link.to} className="footer__link">{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 

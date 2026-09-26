@@ -41,8 +41,9 @@ export default function HomePage() {
       <JsonLd data={ORG_JSONLD} id="jsonld-org" />
       <JsonLd data={WEBSITE_JSONLD} id="jsonld-website" />
 
-      {/* ── Hero ── */}
-      <section className="hero" aria-labelledby="hero-heading">
+      <main className="home-main">
+        {/* ── Hero ── */}
+        <section className="hero home-sec-hero" aria-labelledby="hero-heading">
         <div className="hero__inner">
           <div className="hero__layout">
             {/* Left: copy */}
@@ -111,7 +112,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Product wall ── */}
-      <section className="section" aria-labelledby="products-heading">
+      <section className="section home-sec-products" aria-labelledby="products-heading">
         <div className="container">
           <div className="section-header--row">
             <div>
@@ -143,36 +144,39 @@ export default function HomePage() {
 
       {/* ── Featured product spotlight ── */}
       {featuredProduct.previewImage && (
-        <section className="featured-product section--alt" aria-labelledby="featured-heading">
+        <section className="featured-product home-sec-featured section--alt" aria-labelledby="featured-heading">
           <div className="container">
             <div className="featured-product__inner">
               {/* Left: copy */}
               <div>
-                <div className="featured-product__icon">
-                  {featuredProduct.icon ? (
-                    <img
-                      src={featuredProduct.icon}
-                      alt=""
-                      aria-hidden="true"
-                      width={24}
-                      height={24}
-                      style={{ width: 24, height: 24, objectFit: 'contain' }}
-                    />
-                  ) : null}
+                <div className="featured-product__meta">
+                  <div className="featured-product__icon">
+                    {featuredProduct.icon ? (
+                      <img
+                        src={featuredProduct.icon}
+                        alt=""
+                        aria-hidden="true"
+                        width={24}
+                        height={24}
+                        style={{ width: 24, height: 24, objectFit: 'contain' }}
+                      />
+                    ) : null}
+                  </div>
+                  <span className="featured-product__label">Featured product</span>
                 </div>
-                <p className="featured-product__label">Featured product</p>
                 <h2 id="featured-heading" className="featured-product__name">
                   {featuredProduct.name}
                 </h2>
                 <p className="featured-product__desc">
                   {featuredProduct.description}
                 </p>
-                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <div className="featured-product__actions">
                   <Link
                     to={`/products/${featuredProduct.slug}`}
                     className="btn btn--primary"
                   >
                     Learn more
+                    <ArrowRight size={14} />
                   </Link>
                   <a
                     href={featuredProduct.appUrl}
@@ -207,7 +211,7 @@ export default function HomePage() {
       )}
 
       {/* ── Philosophy ── */}
-      <section className="section section--border-top" aria-labelledby="philosophy-heading">
+      <section className="section home-sec-philosophy section--border-top" aria-labelledby="philosophy-heading">
         <div className="container">
           <div className="section-header">
             <h2 id="philosophy-heading" className="section-title">Focused by design.</h2>
@@ -244,7 +248,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Quick launch row ── */}
-      <section className="section section--alt section--border-top" aria-labelledby="open-heading">
+      <section className="section home-sec-quick-launch section--alt section--border-top" aria-labelledby="open-heading">
         <div className="container">
           <div className="section-header--row">
             <div>
@@ -253,17 +257,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-              gap: '1px',
-              background: 'var(--border)',
-              border: '1px solid var(--border)',
-              borderRadius: 'var(--r-lg)',
-              overflow: 'hidden',
-            }}
-          >
+          <div className="home-quick-launch-grid">
             {PRODUCTS.filter((p) => p.status === 'live').map((product) => (
               <a
                 key={product.slug}
@@ -271,38 +265,28 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Open ${product.name}`}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.75rem',
-                  padding: '1rem 1.25rem',
-                  background: 'var(--bg-raised)',
-                  color: 'var(--text)',
-                  transition: 'background 200ms ease',
-                  textDecoration: 'none',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--bg-subtle)')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--bg-raised)')}
+                className="home-quick-launch-item"
               >
                 {product.icon ? (
                   <img
                     src={product.icon}
                     alt=""
                     aria-hidden="true"
-                    width={16}
-                    height={16}
-                    style={{ width: 16, height: 16, objectFit: 'contain', flexShrink: 0 }}
+                    width={18}
+                    height={18}
+                    style={{ width: 18, height: 18, objectFit: 'contain', flexShrink: 0 }}
                   />
                 ) : null}
-                <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text)' }}>
+                <span className="home-quick-launch-name">
                   {product.name}
                 </span>
-                <ExternalLink size={12} style={{ marginLeft: 'auto', color: 'var(--text-3)', flexShrink: 0 }} />
+                <ExternalLink size={13} className="home-quick-launch-icon" />
               </a>
             ))}
           </div>
         </div>
       </section>
+      </main>
     </>
   );
 }

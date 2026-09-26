@@ -60,7 +60,7 @@ export default function Header() {
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
           >
-            {menuOpen ? <X size={18} /> : <Menu size={18} />}
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
@@ -80,9 +80,9 @@ export default function Header() {
             ))}
           </nav>
           <div className="header__mobile-theme">
-            <button className="btn btn--ghost" onClick={toggle}>
-              {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
-              {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+            <button className="btn btn--ghost header__mobile-theme-btn" onClick={toggle}>
+              {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+              <span>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
             </button>
           </div>
         </div>
