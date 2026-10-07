@@ -57,24 +57,41 @@ npm run preview
 
 ```text
 SJI/
-├── public/                  # Static assets
+├── public/                  # Static assets and hosting configs
+│   ├── _headers             # Cloudflare Pages security & caching headers
+│   ├── _redirects           # Cloudflare Pages trailing-slash 308 redirects
 │   ├── products/            # Real product icons, screenshots, and visual assets
 │   ├── favicon.svg          # SJI brand mark
+│   ├── favicon.ico          # Multi-size ICO
+│   ├── apple-touch-icon.png # 180x180 touch icon
+│   ├── icon-192.png         # PWA 192x192 icon
+│   ├── icon-512.png         # PWA 512x512 icon
+│   ├── og-image.jpg         # 1200x630 social preview image
+│   ├── og-image.png         # 1200x630 social preview PNG
+│   ├── site.webmanifest     # Web app manifest
 │   ├── robots.txt           # Search engine crawler directives
 │   └── sitemap.xml          # Canonical XML sitemap with all public routes
+├── scripts/                 # Build-time prerender and validation scripts
+│   ├── prerender.mjs        # Generates static route HTML and meta tags
+│   ├── validate-seo.mjs     # Automated SEO and asset test suite
+│   ├── test-crawl.mjs       # JS-disabled crawler verification script
+│   └── verify-http.mjs      # Remote production HTTP endpoint test suite
 ├── src/
-│   ├── components/          # Reusable UI components (ProductCard, ProductPreview, SEO, Header, Footer)
+│   ├── components/          # Reusable UI components (ProductCard, ProductPreview, SEO, JsonLd, Header, Footer)
 │   ├── data/                # Product data definitions and specifications
-│   ├── pages/               # Route pages (Home, Products, ProductDetail, About, Privacy, Terms, Contact)
+│   ├── pages/               # Route pages (Home, Products, ProductDetail, About, Privacy, Terms, Contact, NotFound)
 │   ├── App.tsx              # Root component with routing and theme providers
 │   ├── index.css            # Design system, CSS tokens, and component styles
 │   └── main.tsx             # Application entry point
 ├── index.html               # Main HTML template
-├── vercel.json              # Production SPA routing configuration
 ├── vite.config.ts           # Vite build configuration
 └── tsconfig.json            # TypeScript configuration
 ```
 
 ## Deployment
 
-The production site is configured for standard static/SPA hosting on [Vercel](https://vercel.com) via `vercel.json` with client-side rewrites to `index.html`.
+The production site is deployed on **Cloudflare Pages**:
+- **Prerendering**: `npm run build` compiles the application and runs `scripts/prerender.mjs`, outputting static HTML for all 13 routes and `404.html` to `dist/`.
+- **Headers**: [`public/_headers`](public/_headers) sets HSTS, frame protection, nosniff, and MIME types.
+- **Redirects**: [`public/_redirects`](public/_redirects) enforces `308` permanent redirects from trailing slash URLs to clean canonical URLs.
+- **Validation**: Run `npm run validate:seo` to test all generated routes and assets before deployment.

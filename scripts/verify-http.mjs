@@ -79,8 +79,9 @@ async function run() {
   for (const r of ['/does-not-exist', '/products/not-real-product']) {
     const url = `${BASE}${r}`;
     const result = await testUrl(url);
+    const robots = (result.text.match(/<meta name="robots" content="([^"]+)"/g) || []).join(', ');
     console.log(
-      `${r.padEnd(25)} -> Status ${result.status} | Content-Type: ${result.contentType}`
+      `${r.padEnd(25)} -> Status ${result.status} | Content-Type: ${result.contentType} | Robots: ${robots || 'none'}`
     );
   }
 
@@ -90,6 +91,8 @@ async function run() {
     '/favicon.svg',
     '/favicon.ico',
     '/apple-touch-icon.png',
+    '/icon-192.png',
+    '/icon-512.png',
     '/site.webmanifest',
     '/og-image.png',
     '/og-image.jpg',
