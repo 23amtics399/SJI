@@ -34,6 +34,8 @@ export default function SEO({ title, description, canonical, ogImage }: SEOProps
     setMeta('og:url', canonical, 'property');
     setMeta('og:type', 'website', 'property');
     setMeta('og:image', image, 'property');
+    setMeta('og:image:width', '1200', 'property');
+    setMeta('og:image:height', '630', 'property');
     setMeta('og:site_name', 'SJI', 'property');
 
     // Twitter / X

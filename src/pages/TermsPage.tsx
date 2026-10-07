@@ -1,7 +1,21 @@
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import JsonLd from '../components/JsonLd';
 
 export default function TermsPage() {
+  const termsJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Terms of Use — SJI',
+    description: 'Terms of use for SJI and all SJI products. Read the rules that govern your use of SJI web products.',
+    url: 'https://sji.one/terms',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'SJI',
+      url: 'https://sji.one',
+    },
+  };
+
   return (
     <>
       <SEO
@@ -9,6 +23,7 @@ export default function TermsPage() {
         description="Terms of use for SJI and all SJI products. Read the rules that govern your use of SJI web products."
         canonical="https://sji.one/terms"
       />
+      <JsonLd data={termsJsonLd} id="jsonld-terms" />
 
       <div className="page-hero">
         <div className="container">

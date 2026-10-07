@@ -1,9 +1,23 @@
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import JsonLd from '../components/JsonLd';
 import ProductPreview from '../components/ProductPreview';
 import { PRODUCTS } from '../data/products';
 
 export default function AboutPage() {
+  const aboutJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'About SJI',
+    description: 'SJI is a collection of focused web products built around practical everyday needs. Each product solves a single task simply and quickly.',
+    url: 'https://sji.one/about',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'SJI',
+      url: 'https://sji.one',
+    },
+  };
+
   return (
     <>
       <SEO
@@ -11,6 +25,7 @@ export default function AboutPage() {
         description="SJI is a collection of focused web products built around practical everyday needs. Each product solves a single task simply and quickly."
         canonical="https://sji.one/about"
       />
+      <JsonLd data={aboutJsonLd} id="jsonld-about" />
 
       <div className="page-hero">
         <div className="container">

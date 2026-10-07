@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import SEO from '../components/SEO';
+import JsonLd from '../components/JsonLd';
 import ProductCard, { ProductRealIcon } from '../components/ProductCard';
 import ProductPreview from '../components/ProductPreview';
 import { PRODUCTS } from '../data/products';
@@ -9,13 +10,27 @@ export default function ProductsPage() {
   const featured = PRODUCTS.find((p) => p.featured) ?? PRODUCTS[0];
   const remaining = PRODUCTS.filter((p) => p.slug !== featured.slug);
 
+  const collectionJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'SJI Products',
+    description: 'Browse all SJI web products: AI chatbot builder, temporary email, image & PDF tools, clocks & timers, URL shortener, calculators, and writing workspace. Free.',
+    url: 'https://sji.one/products',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'SJI',
+      url: 'https://sji.one',
+    },
+  };
+
   return (
     <>
       <SEO
         title="SJI Products — Focused Web Applications & Utilities"
-        description="Browse all SJI web products: AI knowledge-base chatbot builder, disposable temporary email, client-side image and PDF utilities, time tracking, URL shortening, calculators, and offline writing workspace."
+        description="Browse all SJI web products: AI chatbot builder, temporary email, image & PDF tools, clocks & timers, URL shortener, calculators, and writing workspace. Free."
         canonical="https://sji.one/products"
       />
+      <JsonLd data={collectionJsonLd} id="jsonld-collection-products" />
 
       <div className="page-hero">
         <div className="container">

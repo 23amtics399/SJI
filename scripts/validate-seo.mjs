@@ -28,7 +28,7 @@ const SITE = 'https://sji.one';
 
 const ROUTES = [
   { distPath: 'index.html',                        canonical: `${SITE}/`,                       expectJsonLd: true },
-  { distPath: 'products/index.html',               canonical: `${SITE}/products`,               expectJsonLd: false },
+  { distPath: 'products/index.html',               canonical: `${SITE}/products`,               expectJsonLd: true },
   { distPath: 'products/prebase/index.html',       canonical: `${SITE}/products/prebase`,       expectJsonLd: true },
   { distPath: 'products/tempbox/index.html',       canonical: `${SITE}/products/tempbox`,       expectJsonLd: true },
   { distPath: 'products/tools/index.html',         canonical: `${SITE}/products/tools`,         expectJsonLd: true },
@@ -36,10 +36,10 @@ const ROUTES = [
   { distPath: 'products/shorty/index.html',        canonical: `${SITE}/products/shorty`,        expectJsonLd: true },
   { distPath: 'products/calc/index.html',          canonical: `${SITE}/products/calc`,          expectJsonLd: true },
   { distPath: 'products/scratchpad/index.html',    canonical: `${SITE}/products/scratchpad`,    expectJsonLd: true },
-  { distPath: 'about/index.html',                  canonical: `${SITE}/about`,                  expectJsonLd: false },
-  { distPath: 'contact/index.html',                canonical: `${SITE}/contact`,                expectJsonLd: false },
-  { distPath: 'privacy/index.html',                canonical: `${SITE}/privacy`,                expectJsonLd: false },
-  { distPath: 'terms/index.html',                  canonical: `${SITE}/terms`,                  expectJsonLd: false },
+  { distPath: 'about/index.html',                  canonical: `${SITE}/about`,                  expectJsonLd: true },
+  { distPath: 'contact/index.html',                canonical: `${SITE}/contact`,                expectJsonLd: true },
+  { distPath: 'privacy/index.html',                canonical: `${SITE}/privacy`,                expectJsonLd: true },
+  { distPath: 'terms/index.html',                  canonical: `${SITE}/terms`,                  expectJsonLd: true },
   { distPath: '404.html',                          canonical: null,                             expectJsonLd: false },
 ];
 
@@ -50,6 +50,8 @@ const CHECKS = {
   ogDescription: /<meta property="og:description" content="[^"]+"/,
   ogUrl: /<meta property="og:url" content="[^"]+"/,
   ogImage: /<meta property="og:image" content="[^"]+"/,
+  ogImageWidth: /<meta property="og:image:width" content="1200"\s*\/?>/,
+  ogImageHeight: /<meta property="og:image:height" content="630"\s*\/?>/,
   h1: /<h1[^>]*>[^<]+<\/h1>/,
 };
 
@@ -82,6 +84,20 @@ for (const route of ROUTES) {
       console.log(`  ✓  ${key}`);
     } else {
       console.error(`  ❌  ${key} MISSING`);
+      routeFailed = true;
+    }
+  }
+
+  // If 404.html, verify it has strictly noindex and no contradictory index, follow
+  if (is404) {
+    if (html.includes('content="noindex, follow"')) {
+      console.log(`  ✓  404 robots noindex, follow`);
+    } else {
+      console.error(`  ❌  404 robots missing noindex, follow`);
+      routeFailed = true;
+    }
+    if (html.includes('content="index, follow"')) {
+      console.error(`  ❌  404 robots contains contradictory index, follow!`);
       routeFailed = true;
     }
   }
@@ -133,6 +149,8 @@ const REQUIRED_ASSETS = [
   'favicon.svg',
   'favicon.ico',
   'apple-touch-icon.png',
+  'icon-192.png',
+  'icon-512.png',
   'site.webmanifest',
   'og-image.png',
   'og-image.jpg',

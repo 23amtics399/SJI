@@ -1,7 +1,21 @@
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import JsonLd from '../components/JsonLd';
 
 export default function PrivacyPage() {
+  const privacyJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Privacy Policy — SJI',
+    description: 'Privacy policy for SJI and all SJI products including PreBase, TempBox, Tools, Time, Shorty, Calc and Scratchpad.',
+    url: 'https://sji.one/privacy',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'SJI',
+      url: 'https://sji.one',
+    },
+  };
+
   return (
     <>
       <SEO
@@ -9,6 +23,7 @@ export default function PrivacyPage() {
         description="Privacy policy for SJI and all SJI products including PreBase, TempBox, Tools, Time, Shorty, Calc and Scratchpad."
         canonical="https://sji.one/privacy"
       />
+      <JsonLd data={privacyJsonLd} id="jsonld-privacy" />
 
       <div className="page-hero">
         <div className="container">

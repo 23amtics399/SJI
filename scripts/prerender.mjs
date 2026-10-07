@@ -262,7 +262,7 @@ function buildRoutes() {
       path: '/products',
       distPath: 'products/index.html',
       title: 'SJI Products — Focused Web Applications & Utilities',
-      description: 'Browse all SJI web products: AI knowledge-base chatbot builder, disposable temporary email, client-side image and PDF utilities, time tracking, URL shortening, calculators, and offline writing workspace.',
+      description: 'Browse all SJI web products: AI chatbot builder, temporary email, image & PDF tools, clocks & timers, URL shortener, calculators, and writing workspace. Free.',
       canonical: `${SITE}/products`,
       h1: 'SJI Products',
       bodyContent: `
@@ -278,7 +278,14 @@ function buildRoutes() {
             <p>All SJI products are free to use. No mandatory accounts. No installation required.</p>
           </section>
         </section>`,
-      jsonLd: null,
+      jsonLd: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: 'SJI Products',
+        description: 'Browse all SJI web products: AI chatbot builder, temporary email, image & PDF tools, clocks & timers, URL shortener, calculators, and writing workspace. Free.',
+        url: `${SITE}/products`,
+        isPartOf: { '@type': 'WebSite', name: 'SJI', url: SITE },
+      }),
     },
     {
       path: '/about',
@@ -305,7 +312,14 @@ function buildRoutes() {
             ${PRODUCTS.map(p => `<a href="/products/${p.slug}">${p.name}</a>`).join(' · ')}
           </nav>
         </section>`,
-      jsonLd: null,
+      jsonLd: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'AboutPage',
+        name: 'About SJI',
+        description: 'SJI is a collection of focused web products built around practical everyday needs. Each product solves a single task simply and quickly.',
+        url: `${SITE}/about`,
+        isPartOf: { '@type': 'WebSite', name: 'SJI', url: SITE },
+      }),
     },
     {
       path: '/privacy',
@@ -327,7 +341,14 @@ function buildRoutes() {
           <p>SJI uses minimal cookies. No tracking cookies or third-party advertising cookies are used on SJI properties.</p>
           <p><a href="/contact">Contact us</a> | <a href="/terms">Terms of Use</a></p>
         </section>`,
-      jsonLd: null,
+      jsonLd: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: 'Privacy Policy — SJI',
+        description: 'Privacy policy for SJI and all SJI products including PreBase, TempBox, Tools, Time, Shorty, Calc and Scratchpad.',
+        url: `${SITE}/privacy`,
+        isPartOf: { '@type': 'WebSite', name: 'SJI', url: SITE },
+      }),
     },
     {
       path: '/terms',
@@ -347,7 +368,14 @@ function buildRoutes() {
           <p>SJI products are provided "as is" without warranty of any kind.</p>
           <p><a href="/contact">Contact us</a> | <a href="/privacy">Privacy Policy</a></p>
         </section>`,
-      jsonLd: null,
+      jsonLd: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: 'Terms of Use — SJI',
+        description: 'Terms of use for SJI and all SJI products. Read the rules that govern your use of SJI web products.',
+        url: `${SITE}/terms`,
+        isPartOf: { '@type': 'WebSite', name: 'SJI', url: SITE },
+      }),
     },
     {
       path: '/contact',
@@ -361,14 +389,23 @@ function buildRoutes() {
           <h1>Contact</h1>
           <p>For general enquiries, product feedback or bug reports.</p>
           <h2>Get in touch</h2>
-          <p>For general enquiries, feedback about a specific product or to report a bug, reach us by email. We read every message.</p>
+          <p>For general enquiries, feedback about a specific product or to report a bug, reach us by email. We read every message and typically respond within 24–48 hours.</p>
+          <h2>Response times</h2>
+          <p>We aim to respond to all enquiries within 24–48 hours. High-priority issues such as service outages or security concerns are treated with immediate urgency.</p>
           <h2>Product-specific feedback</h2>
           <ul>
             ${PRODUCTS.map(p => `<li><a href="/products/${p.slug}">${p.name}</a></li>`).join('\n            ')}
           </ul>
           <p><a href="/">Back to SJI</a> | <a href="/products">All products</a></p>
         </section>`,
-      jsonLd: null,
+      jsonLd: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'ContactPage',
+        name: 'Contact SJI',
+        description: 'Get in touch with SJI. For general enquiries, product feedback, bug reports or other questions, contact us by email.',
+        url: `${SITE}/contact`,
+        isPartOf: { '@type': 'WebSite', name: 'SJI', url: SITE },
+      }),
     },
   ];
 
@@ -440,6 +477,8 @@ function buildHeadTags(route) {
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="SJI" />
     <meta property="og:image" content="${OG_IMAGE}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escAttr(route.title)}" />
     <meta name="twitter:description" content="${escAttr(route.description)}" />
@@ -461,6 +500,11 @@ function buildNoScriptSection(route) {
   <noscript>
     <div style="font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1.5rem">
       ${route.bodyContent}
+      <footer style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid #ddd;font-size:0.875rem">
+        <p><strong>SJI Pages:</strong> <a href="/">Home</a> · <a href="/products">All Products</a> · <a href="/about">About</a> · <a href="/contact">Contact</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></p>
+        <p><strong>SJI Network:</strong> <a href="https://prebase.sji.one">prebase.sji.one</a> · <a href="https://tempbox.sji.one">tempbox.sji.one</a> · <a href="https://tools.sji.one">tools.sji.one</a> · <a href="https://time.sji.one">time.sji.one</a> · <a href="https://shorty.sji.one">shorty.sji.one</a> · <a href="https://calc.sji.one">calc.sji.one</a> · <a href="https://scratchpad.sji.one">scratchpad.sji.one</a></p>
+        <p style="color:#666">© 2026 SJI. Useful software for the web.</p>
+      </footer>
     </div>
   </noscript>`.trim();
 }
@@ -550,6 +594,7 @@ function write404(shell) {
   let html = shell
     .replace(/<title>[^<]*<\/title>/, '')
     .replace(/<link rel="canonical"[^>]*\/?>/, '')
+    .replace(/<meta name="robots"[^>]*\/?>/, '')
     .replace(/<meta property="og:[^"]*"[^>]*\/?>/g, '')
     .replace(/<meta name="twitter:[^"]*"[^>]*\/?>/g, '')
     .replace(/<meta name="description"[^>]*\/?>/, '');

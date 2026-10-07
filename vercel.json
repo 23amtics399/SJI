@@ -64,6 +64,24 @@
       ]
     },
     {
+      "source": "/icon-192.png",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/png"
+        }
+      ]
+    },
+    {
+      "source": "/icon-512.png",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/png"
+        }
+      ]
+    },
+    {
       "source": "/favicon.ico",
       "headers": [
         {

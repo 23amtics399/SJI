@@ -1599,8 +1599,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .footer__inner {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: var(--sp-12);
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: var(--sp-8);
   max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 var(--container-pad) var(--sp-10);
@@ -2221,7 +2221,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   }
   .footer__cols-wrap {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: var(--sp-6);
   }
   .footer__col-title {

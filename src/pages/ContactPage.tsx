@@ -1,9 +1,23 @@
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import JsonLd from '../components/JsonLd';
 
 const CONTACT_EMAIL = '';
 
 export default function ContactPage() {
+  const contactJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: 'Contact SJI',
+    description: 'Get in touch with SJI for general enquiries, feedback, or bug reports.',
+    url: 'https://sji.one/contact',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'SJI',
+      url: 'https://sji.one',
+    },
+  };
+
   return (
     <>
       <SEO
@@ -11,6 +25,7 @@ export default function ContactPage() {
         description="Get in touch with SJI. For general enquiries, product feedback, bug reports or other questions, contact us by email."
         canonical="https://sji.one/contact"
       />
+      <JsonLd data={contactJsonLd} id="jsonld-contact" />
 
       <div className="page-hero">
         <div className="container">
