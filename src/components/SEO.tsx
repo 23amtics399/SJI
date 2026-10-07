@@ -7,7 +7,7 @@ interface SEOProps {
   ogImage?: string;
 }
 
-const BASE_OG_IMAGE = 'https://sji.one/og-image.png';
+const BASE_OG_IMAGE = 'https://sji.one/og-image.jpg';
 
 export default function SEO({ title, description, canonical, ogImage }: SEOProps) {
   const image = ogImage || BASE_OG_IMAGE;

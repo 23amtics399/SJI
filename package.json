@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && node scripts/prerender.mjs",
+    "prerender": "node scripts/prerender.mjs",
+    "validate:seo": "node scripts/validate-seo.mjs",
+    "gen:icons": "node scripts/gen-icons-pure.mjs",
+    "build:full": "npm run build && npm run validate:seo",
     "preview": "vite preview"
   },
   "devDependencies": {

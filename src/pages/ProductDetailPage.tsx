@@ -7,6 +7,48 @@ import ProductPreview from '../components/ProductPreview';
 import { PRODUCTS, getProduct } from '../data/products';
 
 /* -------------------------------------------------------
+   Per-product capability card descriptions
+   Three descriptions per product, matching features[0..2].
+   ------------------------------------------------------- */
+const CAPABILITY_DESCS: Record<string, [string, string, string]> = {
+  prebase: [
+    'PreBase ingests your PDFs, text files, and web pages to build a private, searchable knowledge index that powers accurate AI responses grounded in your content.',
+    'Once your content is uploaded, PreBase automatically trains a conversational assistant that answers only from your material — no hallucinations from generic training data.',
+    'Deploy your chatbot to any website by pasting a single embed snippet. Customise the appearance, conversational tone, and allowed topics to fit your product or brand.',
+  ],
+  tempbox: [
+    'TempBox generates a working email address the moment you open it — no registration, no password, no personal information required. Copy and start using immediately.',
+    'Emails sent to your TempBox address appear in real time directly in your browser session, including HTML content, attachments, and multi-part messages.',
+    'Your temporary inbox and all received mail are automatically discarded when your session ends. No data is retained on TempBox servers after the session is over.',
+  ],
+  tools: [
+    'Compress JPEG, PNG and WebP images with fine-grained quality control. Reduce file sizes dramatically while preserving visual fidelity — processing runs entirely in your browser.',
+    'Resize images to exact pixel dimensions while preserving aspect ratio, or crop to a custom target region. Supports batch processing of multiple files in a single operation.',
+    'Convert PDF pages to individual images, or combine multiple images into a single PDF document. Every operation is client-side — your files never leave your device.',
+  ],
+  time: [
+    'Display the current time in digital or analog format. Add multiple time zones to the world clock panel to compare times across locations at a glance — useful for distributed teams.',
+    'Track elapsed time with the stopwatch, including named lap splits. The countdown timer counts down from any custom duration with an alert when time expires.',
+    'The Pomodoro timer implements the standard 25-minute focus / 5-minute break cycle. Set browser alarms that fire even when the tab is in the background via the Web Notifications API.',
+  ],
+  shorty: [
+    'Paste any long URL and receive a short Shorty link within milliseconds. No account, no configuration, no dashboard — just paste and copy the result.',
+    'Shorty links are clean, consistent and human-readable. They fit naturally in emails, social posts, documentation, and printed materials without the noise of tracking parameters.',
+    'Copy your shortened link to the clipboard with a single click. Shorty maintains a session history so you can retrieve recently created links without re-shortening.',
+  ],
+  calc: [
+    'Perform addition, subtraction, multiplication, division and percentage calculations instantly. Supports brackets for correct operator precedence and maintains a scrollable calculation history.',
+    'Every operation is accessible from the keyboard. Number keys, operators, Enter to evaluate, Backspace to delete, Escape to clear — as fast as a physical calculator without leaving the browser.',
+    'All calculation runs in the browser after the first load. SJI Calc continues working without an internet connection, making it reliable in environments with intermittent connectivity.',
+  ],
+  scratchpad: [
+    'A minimal writing environment with no toolbars, no sidebars, no notifications competing for your attention. The interface disappears so you can focus entirely on the words.',
+    'Content is saved to your browser\'s local storage as you type — no save button, no sync delay. When you reopen Scratchpad, your previous text is exactly where you left it.',
+    'Scratchpad requires no account and no internet connection after the initial load. Export your content as plain text at any time when you need to move it elsewhere.',
+  ],
+};
+
+/* -------------------------------------------------------
    Per-product unique editorial content
    ------------------------------------------------------- */
 const PRODUCT_CONTENT: Record<string, {
@@ -294,7 +336,8 @@ export default function ProductDetailPage() {
                 <p className="feature-card__num">0{idx + 1}</p>
                 <p className="feature-card__title">{feat}</p>
                 <p className="feature-card__desc">
-                  Designed for speed and reliability, built specifically for {product.name}.
+                  {(CAPABILITY_DESCS[product.slug] ?? [])[idx] ??
+                    `${feat} — a core part of what makes ${product.name} useful.`}
                 </p>
               </div>
             ))}
